@@ -26,8 +26,8 @@ int main(int argc, char *argv[])
   // create frameless window (and set windowState or title)
   FramelessWindow framelessWindow;
   //framelessWindow.setWindowState(Qt::WindowMaximized);
-  //framelessWindow.setWindowTitle("test title");
-  framelessWindow.setWindowIcon(a.style()->standardIcon(QStyle::SP_DesktopIcon));
+  framelessWindow.setWindowTitle("UI Test");
+  framelessWindow.setWindowIcon(QIcon(":/icon"));
 
   // create our mainwindow instance
   MainWindow *mainWindow = new MainWindow;

@@ -36,3 +36,5 @@ FORMS       += mainwindow.ui \
 
 RESOURCES   += darkstyle.qrc \
                framelesswindow.qrc
+			   
+RC_FILE = myapp.rc

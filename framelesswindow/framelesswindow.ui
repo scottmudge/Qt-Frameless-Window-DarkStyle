@@ -140,7 +140,7 @@
            </property>
            <property name="styleSheet">
             <string notr="true">  padding-left:5px;
-  color:rgb(153,153,153);</string>
+  color:rgb(220,220,220);</string>
            </property>
            <property name="text">
             <string>Frameless Window (Dark Style)</string>
