@@ -15,10 +15,7 @@
 #include <QPainter>
 #include "windowdragger.h"
 
-WindowDragger::WindowDragger(QWidget *parent): QWidget(parent)
-{
-  mousePressed = false;
-}
+WindowDragger::WindowDragger(QWidget *parent): QWidget(parent), mousePressed(false), fullScreen(false) {}
 
 void WindowDragger::mousePressEvent(QMouseEvent *event)
 {
@@ -31,6 +28,8 @@ void WindowDragger::mousePressEvent(QMouseEvent *event)
 
   if (parent)
     wndPos = parent->pos();
+
+  fullScreen = parent->windowState().testFlag(Qt::WindowFullScreen);
 }
 
 void WindowDragger::mouseMoveEvent(QMouseEvent *event)
@@ -39,7 +38,7 @@ void WindowDragger::mouseMoveEvent(QMouseEvent *event)
   if (parent)
     parent = parent->parentWidget();
 
-  if (parent && mousePressed)
+  if (parent && mousePressed && !fullScreen)
     parent->move(wndPos + (event->globalPos() - mousePos));
 }
 

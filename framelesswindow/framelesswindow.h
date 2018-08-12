@@ -77,6 +77,7 @@ protected:
 
 private:
   Ui::FramelessWindow *ui;
+  QRect windowedGeometry;
 
 protected:
   QHBoxLayout contentLayout;

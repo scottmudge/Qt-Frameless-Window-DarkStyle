@@ -43,7 +43,7 @@ FramelessWindow::FramelessWindow(QWidget *parent): QWidget(parent), ui(new Ui::F
      //window shadow
      QGraphicsDropShadowEffect *windowShadow = new QGraphicsDropShadowEffect;
      windowShadow->setBlurRadius(9.0);
-     windowShadow->setColor(palette().color(QPalette::Highlight));
+     windowShadow->setColor(palette().color(QPalette::Shadow));
      windowShadow->setOffset(0.0);
      ui->windowFrame->setGraphicsEffect(windowShadow);
   }
@@ -104,13 +104,13 @@ void FramelessWindow::styleWindow(bool bActive, bool bNoState)
     if (bNoState) {
       layout()->setMargin(15);
       ui->windowTitlebar->setStyleSheet("#windowTitlebar{border: 0px none palette(shadow); border-top-left-radius:5px; border-top-right-radius:5px; background-color:palette(shadow); height:20px;}");
-      ui->windowFrame->setStyleSheet("#windowFrame{border:1px solid palette(highlight); border-radius:5px 5px 5px 5px; background-color:palette(Window);}");
+      ui->windowFrame->setStyleSheet("#windowFrame{border:1px solid palette(shadow); border-radius:5px 5px 5px 5px; background-color:palette(Window);}");
       QGraphicsEffect *oldShadow = ui->windowFrame->graphicsEffect();
       if (oldShadow)
         delete oldShadow;
       QGraphicsDropShadowEffect *windowShadow = new QGraphicsDropShadowEffect;
       windowShadow->setBlurRadius(9.0);
-      windowShadow->setColor(palette().color(QPalette::Highlight));
+      windowShadow->setColor(palette().color(QPalette::Shadow));
       windowShadow->setOffset(0.0);
       ui->windowFrame->setGraphicsEffect(windowShadow);
     } else {
@@ -173,7 +173,8 @@ void FramelessWindow::on_restoreButton_clicked() {
   layout()->setMargin(15);
   ui->restoreButton->setVisible(false);
   ui->maximizeButton->setVisible(true);
-  setWindowState(Qt::WindowNoState);
+  showNormal();
+  setGeometry(this->windowedGeometry);
   styleWindow(true, true);
 }
 void FramelessWindow::on_maximizeButton_clicked()
@@ -181,7 +182,9 @@ void FramelessWindow::on_maximizeButton_clicked()
   layout()->setMargin(0);
   ui->restoreButton->setVisible(true);
   ui->maximizeButton->setVisible(false);
-  setWindowState(Qt::WindowMaximized);
+  this->windowedGeometry = geometry();
+  showFullScreen();
+  
   styleWindow(true, false);
 }
 void FramelessWindow::on_closeButton_clicked()
@@ -193,7 +196,7 @@ void FramelessWindow::on_windowTitlebar_doubleClicked()
 {
   if (windowState().testFlag(Qt::WindowNoState)) {
     on_maximizeButton_clicked();
-  } else if (windowState().testFlag(Qt::WindowMaximized)) {
+  } else if (windowState().testFlag(Qt::WindowFullScreen)) {
     on_restoreButton_clicked();
   }
 }

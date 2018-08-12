@@ -37,3 +37,9 @@ Makefile*
 # QtCtreator CMake
 CMakeLists.txt.user*
 
+x64/*
+release/*
+debug/*
+*.vcxproj*
+*.VC.*
+*.sln

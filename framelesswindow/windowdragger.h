@@ -36,6 +36,7 @@ protected:
 
 protected:
   bool   mousePressed;
+  bool	 fullScreen;
   QPoint mousePos;
   QPoint wndPos;
 };
