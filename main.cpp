@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
   QApplication a(argc, argv);
 
   // style our application with custom dark style
-  a.setStyle(new DarkStyle);
+  a.setStyle(new DarkStyle("C:\\Test.dat"));
 
   // create frameless window (and set windowState or title)
   FramelessWindow framelessWindow;

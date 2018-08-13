@@ -20,21 +20,32 @@
 #include <QFont>
 #include <QFile>
 
+
 class DarkStyle : public QProxyStyle
 {
-  Q_OBJECT
+	Q_OBJECT
 
 public:
-  DarkStyle();
-  explicit DarkStyle(QStyle *style);
+	DarkStyle();
+	explicit DarkStyle(QStyle *style);
+	explicit DarkStyle(const QString& style_config);
 
-  QStyle *baseStyle() const;
 
-  void polish(QPalette &palette) override;
-  void polish(QApplication *app) override;
+	QStyle *baseStyle() const;
+
+	void polish(QPalette &palette) override;
+	void polish(QApplication *app) override;
 
 private:
-  QStyle *styleBase(QStyle *style = Q_NULLPTR) const;
+	QPalette mPalette;
+	QStyle *styleBase(QStyle *style = Q_NULLPTR) const;
+
+	void toJSON(const QString& filename) const;
+	void fromJSON(const QString& filename);
+
+	static QJsonObject jsonFromColor(const QColor& color);
+
+	static QColor colorFromJSON(const QJsonObject &json);
 };
 
 #endif  // _DarkStyle_HPP
